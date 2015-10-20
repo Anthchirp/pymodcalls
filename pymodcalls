@@ -7,8 +7,12 @@ if [ $# -lt 1 ]; then
   exit 255
 fi
 
+SCRIPT=`readlink -f $0`
+SCRIPTPATH=`dirname $SCRIPT`
+PYFILES=`ls $@ | xargs -I {} readlink -f {}` 
+
 echo -ne "Analyzing...\n"
-python -m /home/qny31541/git/miniprojects/refactoring/pyan/pyan `readlink -f $@` -c -e -n --dot > temp.dot
+python -m ${SCRIPTPATH}/pyan/pyan ${PYFILES} -c -e -n --dot > temp.dot
 if [ $? -eq 0 ]; then
   echo -ne "Generating layout...\n"
   # "fdp" comes from the graphviz package
@@ -18,6 +22,6 @@ if [ $? -eq 0 ]; then
 
   echo -ne "Visualizing...\n"
   # -n = filter off (input already in xdot format)
-  python -m /home/qny31541/git/miniprojects/refactoring/xdot/xdot -n temp.xdot
+  python -m ${SCRIPTPATH}/xdot/xdot -n temp.xdot
 fi
 
