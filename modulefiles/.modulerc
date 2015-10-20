@@ -1,0 +1,5 @@
+#%Module1.0#####################################################################
+##
+## The default pymodcalls modulefile
+
+module-version pymodcalls/1 default

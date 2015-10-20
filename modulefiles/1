@@ -1,0 +1,12 @@
+#%Module1.0
+##
+## pymodcalls modulefile
+##
+module-whatis "Load pymodcalls script onto the path"
+
+proc ModulesHelp { } {
+    global version
+    puts stderr "\tLoad pymodcalls version $version onto the path"
+}
+
+prepend-path PATH "/dls_sw/dasc/pymodcalls"
