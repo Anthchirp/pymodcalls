@@ -11,8 +11,11 @@ SCRIPT=`readlink -f $0`
 SCRIPTPATH=`dirname $SCRIPT`
 PYFILES=`ls $@ | xargs -I {} readlink -f {}` 
 
+PYTHON=`which python`
+which dials.python >/dev/null 2>/dev/null && PYTHON=`which dials.python`
+
 echo -ne "Analyzing...\n"
-python -m ${SCRIPTPATH}/pyan/pyan ${PYFILES} -c -e -n --dot > temp.dot
+${PYTHON} -m ${SCRIPTPATH}/pyan/pyan ${PYFILES} -c -e -n --dot > temp.dot
 if [ $? -eq 0 ]; then
   echo -ne "Generating layout...\n"
   # "fdp" comes from the graphviz package
